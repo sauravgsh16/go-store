@@ -3,8 +3,6 @@ package account
 import (
 	"context"
 	"database/sql"
-
-	"github.com/sauravgsh16/go-store/account/datastore/postgres"
 )
 
 const (
@@ -26,9 +24,9 @@ type accountRepo struct {
 }
 
 // NewAccountRepo returns a new account repository
-func NewAccountRepo() Repository {
+func NewAccountRepo(db *sql.DB) Repository {
 	return &accountRepo{
-		db: postgres.DB,
+		db: db,
 	}
 }
 

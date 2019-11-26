@@ -13,12 +13,12 @@ import (
 
 // AccGrpc struct
 type AccGrpc struct {
-	service service.Service
+	Serv service.Service
 }
 
 // GetAccount to get account
 func (g *AccGrpc) GetAccount(ctx context.Context, req *pb.GetAccountRequest) (*pb.GetAccountResponse, error) {
-	resp, err := g.service.GetAccount(ctx, req.Id)
+	resp, err := g.Serv.GetAccount(ctx, req.Id)
 	if err != nil {
 		return nil, status.Error(codes.Internal, fmt.Sprintf("Error getting account: %s", err.Error()))
 	}
@@ -32,7 +32,7 @@ func (g *AccGrpc) GetAccount(ctx context.Context, req *pb.GetAccountRequest) (*p
 
 // GetAccounts to get accounts
 func (g *AccGrpc) GetAccounts(ctx context.Context, req *pb.GetAccountsRequest) (*pb.GetAccountsResponse, error) {
-	resp, err := g.service.GetAccounts(ctx, req.Skip, req.Take)
+	resp, err := g.Serv.GetAccounts(ctx, req.Skip, req.Take)
 	if err != nil {
 		return nil, status.Error(codes.Internal, fmt.Sprintf("Error getting all accounts: %s", err.Error()))
 	}
@@ -53,7 +53,7 @@ func (g *AccGrpc) GetAccounts(ctx context.Context, req *pb.GetAccountsRequest) (
 
 // PostAccount to create an account
 func (g *AccGrpc) PostAccount(ctx context.Context, req *pb.PostAccountRequest) (*pb.PostAccountResponse, error) {
-	resp, err := g.service.PostAccount(ctx, req.Name)
+	resp, err := g.Serv.PostAccount(ctx, req.Name)
 	if err != nil {
 		return nil, status.Error(codes.Internal, fmt.Sprintf("Errors created account: %s", err.Error()))
 	}

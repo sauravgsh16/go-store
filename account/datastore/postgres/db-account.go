@@ -9,9 +9,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// DB Connection
-var DB *sql.DB
-
 const (
 	dbHost = "localhost"
 	dbPort = 5432
@@ -20,7 +17,8 @@ const (
 	dbName = "account"
 )
 
-func init() {
+// GetDBConn returns a DB connection
+func GetDBConn() *sql.DB {
 	connInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		dbHost,
 		dbPort,
@@ -31,13 +29,14 @@ func init() {
 
 	var err error
 
-	DB, err := sql.Open("postgres", connInfo)
+	db, err := sql.Open("postgres", connInfo)
 	if err != nil {
 		panic(err)
 	}
 
-	if err = DB.Ping(); err != nil {
+	if err = db.Ping(); err != nil {
 		panic(err)
 	}
 	log.Printf("DB Configured successfully\n")
+	return db
 }
